@@ -1,0 +1,78 @@
+body
+{
+    background-color: #ffe05d;
+}
+
+form
+{
+    text-align: center;
+}
+p
+{
+    text-align: center;
+    font-family: "Arial Narrow";
+    color: #ff9642;
+}
+
+.email
+{
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ff9642;
+    border-radius: 4px;
+
+}
+
+.password
+{
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ff9642;
+    border-radius: 4px;
+}
+
+.send
+{
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ff9642;
+    border-radius: 4px;
+}
+
+.banniere
+{
+    height: 420px;
+
+}
+
+.articleimg
+{
+
+}
+title
+{
+    text-align: center;
+}
+body
+{
+    background: #f7dad9;
+}
+
+.container
+{
+    margin: 0 auto;
+    background: #ff9642;
+    max-width: 940px;
+    box-shadow: 0.5rem 1rem rgba(0,0,0,15);
+}
+
+.article
+{
+    position: relative;
+    margin: 50px 0;
+    padding-left: 300px;
+    min-height: 150px;
+}
