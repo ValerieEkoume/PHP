@@ -87,6 +87,40 @@ $coordonnees = array(
 foreach ($coordonnees as $element) {
     echo $element . '<br />';
 }
+/* INSERT INTO connexion à la base de données pour y envoyer les informations INSERT INTO*/
+$pdo = new PDO('mysql:host=mysql;dbname=basedetest;host=127.0.0.1', 'root', '', [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+]);
+$email = $_POST["email"];
+$password = $_POST["password"];
+$sql = "INSERT INTO user (email, password) VALUES  ('$email', '$password')";
+
+$pdo->exec($sql);
+
+/* SELECT récupérer la base de données pour la basculer sur le navigateur*/
+$pdo = new PDO('mysql:host=mysql;dbname=basedetest;host=127.0.0.1', 'root', '',[
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+
+
+$pdoStat = $pdo -> query("SELECT * FROM user");
+$user = $pdoStat -> fetchAll();
+
+
+var_dump($user); /*  pour afficher le array sur le navigateur*/
+
+/* liste à puce avec extraction de bade de donnée*/
+
+<h1>Liste de contacts</h1><br>
+
+<ul class="liste">
+
+        <?php foreach ($user as $item): ?>
+        <li> <?php echo $item['email'] . " - " . $item['password'] ?> </li>
+        <?php endforeach ?>
+
+
+</ul>
+
 
 
 
