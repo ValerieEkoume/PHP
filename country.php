@@ -32,8 +32,10 @@ $capitales ->bind_param("$capitales", $pays);*/
             <div class="form-group">
                 <label for="FormControlSelect">Sélectionner une ville</label>
                 <select class="form-control" name="capitales">
-                    <option value=" " > </option>
-                    <option selected="selected" <?php echo $_GET['capitales']; ?>></option>
+                    <option> </option>
+                    <?php if (isset($_GET['capitales'])): ?>
+                        <option selected="selected"><?= $_GET['capitales'] ?></option>
+                    <?php endif; ?>
                    <?php foreach ($capitales as $capitale): ?>
                         <option value="<?php echo $capitale['capitales']; ?>"
                         >
