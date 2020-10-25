@@ -2,13 +2,31 @@
 
 $pdo = new PDO('mysql:host=mysql;dbname=villes;host=127.0.0.1', 'root', '', [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-$capitales  = $pdo->query("SELECT * FROM capitales")->fetchAll();
 
-/*$pdoStat = $pdo->prepare("SELECT * FROM capitales WHERE 'capitales', 'pays' = ?");
-$capitales = $pdo;
-$pays = $pdo;
 
-$capitales ->bind_param("$capitales", $pays);*/
+$query= ("SELECT * FROM capitales");
+
+$queryBuilder = $pdo->query($query);
+$capitales = $queryBuilder->fetchAll();
+if (isset($_GET["capitales"])){
+
+    $getCapitales = $_GET["capitales"];
+
+    $sql = "SELECT pays FROM capitales WHERE capitales = :capitales";
+
+    $prepare = $pdo->prepare($sql);
+
+    $prepare->bindParam(':capitales', $getCapitales);
+
+    $prepare->execute();
+
+    $pays = $prepare->fetch();
+
+    $result = "La" . " ". $pays['pays'] ." ". " a pour capitale $getCapitales";
+
+}
+
+
 
 
 
@@ -26,48 +44,28 @@ $capitales ->bind_param("$capitales", $pays);*/
     <div class="container mt-5">
         <div class="card border-0 rounded-lg bgpink">
             <div class="card-body">
-    <h1 class="display-1 text-center">Les pays et leurs capitales</h1>
+                <?php if (isset($result)): ?>
+    <h1 class="display-1 text-center"><?= $result ?></h1>
+                <?php else:?>
+                <?php endif; ?>
 
         <form method="get" action="country.php">
             <div class="form-group">
                 <label for="FormControlSelect">Sélectionner une ville</label>
                 <select class="form-control" name="capitales">
                     <option> </option>
-                    <?php if (isset($_GET['capitales'])): ?>
-                        <option selected="selected"><?= $_GET['capitales'] ?></option>
-                    <?php endif; ?>
-                   <?php foreach ($capitales as $capitale): ?>
-                        <option value="<?php echo $capitale['capitales']; ?>"
-                        >
-                            <?= $capitale['capitales'] ?></option>
+
+                    <?php foreach ($capitales as $item):?>
+                        <option><?php echo $item['capitales'] ?></option>
                    <?php endforeach;?>
+
                 </select>
             </div>
             <div class="text-center mt-2">
                 <button type="submit"  class="btn btn-primary">Submit</button>
             </div>
         </form>
-            <?php
-                if (isset($_GET["capitales"]))
-                {
-                    $capitales = $_GET["capitales"];
-                if   ($capitales == 'yaounde'){
-                    $pays = "du Cameroun";
-                    echo $capitales ." ". 'est la capitale' ." ". $pays;
-                }
 
-                elseif
-                    ($capitales == 'paris') {
-                    $pays = "France";
-                    echo $capitales ." ". 'est la capitale' ." ". $pays;
-                }
-
-                elseif ($capitales == 'johannesburg'){
-                    $pays = "Afrique du Sud";
-                    echo $capitales ." ". 'est  la capitale d'." " . $pays;
-                }
-            }
-                ?>
             </div>
         </div>
     </div>
